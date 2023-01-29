@@ -1,11 +1,6 @@
 select * FROM PortfolioProject_Covid..['covid deaths']
 order by 3,4
 
---select * FROM PortfolioProject_Covid..covidvaccine
---order by 3,4
-
---select the data that we are going to use
-
 
 Select location, date, total_cases, new_cases, total_deaths, population 
 From PortfolioProject_Covid..['covid deaths'] order by 1,2
@@ -31,7 +26,7 @@ where population > 100000000
 group by location, population
 order by 4 desc
 
--- Highest death count per population && using CAST here which used to change char ot int
+-- Highest death count per population
 select location, max(cast(total_deaths as int)) as HighestdeathCount, (max(total_deaths)/max(population))*100 as PercentPopDead
 from PortfolioProject_Covid..['covid deaths']
 where continent is not null
@@ -115,7 +110,7 @@ join PortfolioProject_Covid..covidvaccine vaccine
 
 select *, (VaccinatedPeople/population)*100 from #peoplevaccinated
 
---CReating view for later visualizations
+--Creating view for later visualizations
 
 create view percentpeoplevaccinated1 as
 select death.continent, death.location, death.date, death.population, vaccine.new_vaccinations
